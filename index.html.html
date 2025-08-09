@@ -1,0 +1,198 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Rakhi</title>
+<style>
+  :root{
+    --pink:#ff4f92;
+    --pink2:#ff7fb1;
+    --gold:#f7c14b;
+    --gold2:#ffc95e;
+    --bg:#fff6f8;
+    --card:#ffffff;
+    --text:#222;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    background: radial-gradient(1200px 600px at 50% -10%, #ffeef5, #fde9f0 40%, #f8e1ea 70%, #f6dbe7 100%);
+    color:var(--text);
+  }
+  .wrap{
+    min-height:100svh;
+    display:grid;
+    place-items:center;
+    padding:24px;
+  }
+  .card{
+    width:min(700px, 92vw);
+    background:var(--card);
+    border-radius:20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.08);
+    padding: clamp(20px, 4vw, 36px);
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.03) 0 12px, rgba(0,0,0,0) 12px 24px);
+    pointer-events:none;
+  }
+  h1{
+    margin:0 0 10px 0;
+    font-size: clamp(28px, 5.4vw, 40px);
+    color:#e1006f;
+  }
+  .sub{
+    font-size: clamp(15px, 2.8vw, 18px);
+    line-height:1.5;
+    margin-bottom:24px;
+  }
+  .rakhi{
+    --size: 210px;
+    margin: 26px auto 18px;
+    width: var(--size); height: var(--size);
+    display:grid; place-items:center;
+    position:relative;
+    filter: drop-shadow(0 12px 18px rgba(0,0,0,.12));
+  }
+  .thread{
+    position:absolute; top:50%; left:-38%;
+    width:176%; height:10px; transform:translateY(-50%);
+    background: linear-gradient(90deg, #111, #e1006f 40%, #111 60%, #e1006f 100%);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .disc{
+    width:100%; height:100%;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, var(--gold2), var(--gold));
+    display:grid; place-items:center;
+    animation: floaty 3.2s ease-in-out infinite;
+  }
+  .disc::before{
+    content:"";
+    width:68%; height:68%;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #ff97c6, var(--pink));
+    box-shadow: inset 0 0 0 10px rgba(255,255,255,.45),
+                inset 0 0 0 20px rgba(0,0,0,.03);
+  }
+  .dots{
+    position:absolute; inset:0;
+    display:grid; place-items:center;
+    pointer-events:none;
+  }
+  .dots span{
+    position:absolute;
+    width:10px; height:10px; background:white; border-radius:50%;
+    box-shadow:0 1px 0 rgba(0,0,0,.05);
+  }
+  .dots span:nth-child(1){ transform:translate(-12px, -10px); }
+  .dots span:nth-child(2){ transform:translate(10px, -6px); }
+  .dots span:nth-child(3){ transform:translate(-6px, 10px); }
+  .dots span:nth-child(4){ transform:translate(12px, 12px); }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(-4px); }
+    50%{ transform: translateY(4px); }
+  }
+  .btn{
+    display:inline-block;
+    margin:20px auto 10px;
+    padding:14px 22px;
+    border:0;
+    border-radius:12px;
+    background: linear-gradient(180deg, var(--pink2), var(--pink));
+    color:#fff; font-weight:700; font-size: clamp(16px, 3.6vw, 18px);
+    text-decoration:none;
+    box-shadow: 0 10px 20px rgba(225,0,111,.25);
+    transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:active{ transform: translateY(1px) scale(.99); box-shadow: 0 6px 14px rgba(225,0,111,.22); }
+  .tiny{
+    margin-top:22px; opacity:.7; font-size:14px; text-align:center;
+  }
+  .footer{
+    margin-top:10px; text-align:center; font-size:13px; opacity:.8;
+  }
+  .fromto{
+    margin-top:8px; font-size: 15px; color:#444;
+  }
+  .share{
+    margin-top:8px; font-size: 14px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
+  }
+  .copy{
+    border:1px solid #ffd0e7; background:#fff; padding:8px 12px; border-radius:10px; cursor:pointer;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" role="region" aria-label="Digital Rakhi Card">
+    <h1>Happy Rakhi! 🌼</h1>
+    <div class="sub" id="msg">Sending you a warm hug and good wishes on this special day — tied with love!</div>
+    <div class="fromto" id="fromto"></div>
+
+    <div class="rakhi" aria-hidden="true">
+      <div class="thread"></div>
+      <div class="disc"></div>
+      <div class="dots">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <a class="btn" id="openBtn" href="#" aria-label="Open your rakhi">Open your rakhi 🎁</a>
+    </div>
+
+    <div class="tiny">Made with 💖 — Open the rakhi and enjoy!</div>
+    </div>
+</div>
+</div>
+
+<script>
+  // Read URL params and personalize the message
+  const qp = new URLSearchParams(window.location.search);
+  const to = qp.get("to");
+  const from = qp.get("from");
+  const msg = qp.get("msg");
+  const gift = qp.get("gift") || "🎁";
+
+  const h1 = document.querySelector("h1");
+  const sub = document.getElementById("msg");
+  const ft = document.getElementById("fromto");
+  const open = document.getElementById("openBtn");
+  const copyBtn = document.getElementById("copyBtn");
+
+  if (to){ h1.textContent = `Happy Rakhi, ${decodeURIComponent(to)}! 🌼`; }
+  if (msg){ sub.textContent = decodeURIComponent(msg); }
+  if (from || to){
+    const f = from ? `— from ${decodeURIComponent(from)}` : "";
+    const t = to ? `for ${decodeURIComponent(to)}` : "";
+    ft.textContent = [t, f].filter(Boolean).join(" ");
+  }
+
+  // "Open your rakhi" reveals a cute message
+  open.addEventListener("click", (e)=>{
+    e.preventDefault();
+    alert("✨ Blessings, protection, and lots of love! ✨");
+  });
+
+  // Copy a personalized link (preserves current params)
+  copyBtn.addEventListener("click", async ()=>{
+    try{
+      await navigator.clipboard.writeText(window.location.href);
+      copyBtn.textContent = "Link copied! ✅";
+      setTimeout(()=> copyBtn.textContent = "Copy this personalized link", 1800);
+    }catch(err){
+      copyBtn.textContent = "Copy not allowed — long‑press URL";
+    }
+  });
+</script>
+</body>
+</html>
